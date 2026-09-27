@@ -1,38 +1,27 @@
-import os
 
-PROJECT_NAME= "inventory.txt"
-
-def main():
-    while True:
-        print("\n***** ECE LAB INVENTORY *****")
-        print("1] Do you want to add a new equipment ?")
-        print("2] Show all equipments present in lab")
-        print("3] Exit")
-        choice = input("Pick an option (1, 2, or 3): ")
+import menu
+import inventory_manager
+def main() :
+    while True :
+        menu.show_menu()
+        choice = menu.take_input()
         if choice == '1':
-            equipment_name = input("What is the component?: ")
-            amount = input("Quantity: ")
-            with open(PROJECT_NAME, "a") as f:
-                f.write(equipment_name + " : " + amount + "\n")
-            print("Equipment was entered")
+            name = input("Enter component : ")
+            qty = input("Enter quantity: ")
+            inventory_manager.add_item(name, qty)
         elif choice == '2':
-            print("\n***** Your Equipments *****")
-            if os.path.exists(PROJECT_NAME):
-                with open(PROJECT_NAME, "r") as f:
-                    content = f.read()
-                    if content.strip() == "":
-                        print("No equipments saved yet.")
-                    else:
-                        print(content)
-            else:
-                print("No equipments saved yet.")
-                
+            inventory_manager.show_items()
         elif choice == '3':
-            print("Saving and exiting the program")
+            name = input("Enter component to update: ")
+            qty = input("Enter the new quantity: ")
+            inventory_manager.update_item(name, qty)
+        elif choice == '4':
+            name = input("Enter component to delete: ")
+            inventory_manager.delete_item(name)
+        elif choice == '5':
+            print("Saving and exiting")
             break
-            
         else:
-            print("Invalid choice, try again.")
-
+            print("Invalid choice")
 if __name__ == "__main__":
     main()
