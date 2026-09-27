@@ -1,1 +1,2 @@
-Resistor : 5
+Resistor : 10
+resistor : 12
